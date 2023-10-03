@@ -1,0 +1,40 @@
+{
+  "name": "map-tile-downloader",
+  "version": "1.0.0",
+  "description": "This Package developed for downloading map raster tiles",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gislayer/map-tile-downloader.git"
+  },
+  "keywords": [
+    "map",
+    "tile",
+    "raster",
+    "download",
+    "gis",
+    "wms",
+    "downloader",
+    "wmts",
+    "tiles",
+    "zip",
+    "xyz"
+  ],
+  "author": "Ali Kilic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gislayer/map-tile-downloader/issues"
+  },
+  "homepage": "https://github.com/gislayer/map-tile-downloader#readme",
+  "dependencies": {
+    "@turf/bbox-polygon": "^6.5.0",
+    "axios": "^1.5.1",
+    "fs": "^0.0.1-security",
+    "jszip": "^3.10.1",
+    "map-tiles-generator": "^1.0.5",
+    "wkt": "^0.1.1"
+  }
+}
