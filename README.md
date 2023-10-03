@@ -129,3 +129,5 @@ downloader.downloadZipToPath('D:/',(status)=>{
     console.log(status);
 });
 ```
+
+Author : Ali Kilic | ali.kilic@gislayer.com

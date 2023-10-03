@@ -314,14 +314,14 @@ class MapTileDownloader {
             response.data.on('error', error => {
               i++;
               this.downloadList(zip, i, arr, type, path, callback);
-              console.error('Resim indirme hatası:', error);
+              throw new Error(`Download Error!`);
             });
           }
         })
         .catch(error => {
           i++;
           this.downloadList(zip, i, arr, type, path, callback);
-          console.error('Resim indirme hatası:', error);
+          throw new Error(`Download Error!`);
         });
 
     } else {
@@ -378,7 +378,7 @@ class MapTileDownloader {
       }
       this.downloadList(zip, 0, downloadlist, 'zip', '', callback);
     } else {
-      throw new Error(`OBject status is not active!`);
+      throw new Error(`Object status is not active!`);
     }
   }
 
