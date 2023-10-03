@@ -1,6 +1,6 @@
 {
   "name": "map-tile-downloader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This Package developed for downloading map raster tiles",
   "main": "index.js",
   "scripts": {

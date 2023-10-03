@@ -71,7 +71,7 @@ var areaOptions = {
 };
 ```
 
-### Area Options 4 - WKT
+### Area Options 3 - WKT
 ```javascript
 // Area Sample 1 - GeoJSON - Polygon
 
