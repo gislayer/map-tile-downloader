@@ -301,12 +301,10 @@ class MapTileDownloader {
             i++;
             this.downloadList(zip, i, arr, type, path, callback);
           } else if (type == 'folder') {
-            // Veriyi akıştan okuyarak bir Buffer'a dönüştürün
             const chunks = [];
             response.data.on('data', chunk => chunks.push(chunk));
             response.data.on('end', () => {
               const fileBuffer = Buffer.concat(chunks);
-              // Buffer'ı dosyaya yazın
               fs.writeFileSync(`${path}zoom_levels/${item.z}/${item.x}/${item.y}`, fileBuffer);
               i++;
               this.downloadList(zip, i, arr, type, path, callback);
