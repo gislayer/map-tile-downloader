@@ -130,4 +130,4 @@ downloader.downloadZipToPath('D:/',(status)=>{
 });
 ```
 
-Author : Ali Kilic | ali.kilic@gislayer.com
+Author : Ali Kilic | ali.kilic@gislayer.com | https://akilic.com
