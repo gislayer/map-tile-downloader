@@ -63,7 +63,7 @@ var areaOptions = {
 ```
 ### Area Options 2 - BBOX
 ```javascript
-// Area Sample 1 - GeoJSON - Polygon
+// Area Sample 1 - BBOX
 
 var areaOptions = {
   type: 'bbox',
@@ -73,7 +73,7 @@ var areaOptions = {
 
 ### Area Options 3 - WKT
 ```javascript
-// Area Sample 1 - GeoJSON - Polygon
+// Area Sample 1 - WKT Polygon
 
 var areaOptions = {
     type: 'wkt',
