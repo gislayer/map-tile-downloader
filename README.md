@@ -110,6 +110,8 @@ var downloader = new MapTileDownloader(options);
 ```
 
 ### Get Zip Buffer Array
+When you use this method, it'll return a zip buffer array in callback parameter. Then you can use it whatever you want. 
+Generaly this usage best for API respond
 ```javascript
 downloader.getAsZip((zipFile)=>{
     //bufferArray
@@ -117,6 +119,7 @@ downloader.getAsZip((zipFile)=>{
 ```
 
 ### Download Zip File to Defined Path
+You can download zip file to any file path in your server or pc. 
 ```javascript
 downloader.downloadZipToPath('D:/export.zip',(status)=>{
     console.log(status);
@@ -124,10 +127,11 @@ downloader.downloadZipToPath('D:/export.zip',(status)=>{
 ```
 
 ### Generate Folder/Files to Defined Path
+When you use this method tiles will download in hierarchical folders step by step
 ```javascript
-downloader.downloadZipToPath('D:/',(status)=>{
+downloader.generateToPath('D:/',(status)=>{
     console.log(status);
 });
 ```
-
-Author : Ali Kilic | ali.kilic@gislayer.com | https://akilic.com
+## Author
+Sr. GIS Dev. Ali Kilic | ali.kilic@gislayer.com | https://akilic.com
