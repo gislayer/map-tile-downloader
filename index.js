@@ -13,7 +13,7 @@ class MapTileDownloader {
       this.tile = this.checkTile(data);
       this.area = this.checkArea(data);
       this.status = true;
-    } catch (err) {
+    } catch (error) {
       console.error('Error :', error.message);
     }
   }
