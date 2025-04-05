@@ -308,7 +308,7 @@ class MapTileDownloader {
                 status:'success'
               });
             }
-            this.downloadList(zip, i, arr, type, path, callback);
+            this.downloadList(zip, i, arr, type, path, callback, progressCallback);
           } else if (type == 'folder') {
             const chunks = [];
             response.data.on('data', chunk => chunks.push(chunk));
@@ -325,7 +325,7 @@ class MapTileDownloader {
                   status:'success'
                 });
               }
-              this.downloadList(zip, i, arr, type, path, callback);
+              this.downloadList(zip, i, arr, type, path, callback, progressCallback);
             });
             response.data.on('error', error => {
               i++;
@@ -338,7 +338,7 @@ class MapTileDownloader {
                   status:'faild'
                 });
               }
-              this.downloadList(zip, i, arr, type, path, callback);
+              this.downloadList(zip, i, arr, type, path, callback, progressCallback);
               throw new Error(`Download Error!`);
             });
           }
@@ -354,7 +354,7 @@ class MapTileDownloader {
               status:'error'
             });
           }
-          this.downloadList(zip, i, arr, type, path, callback);
+          this.downloadList(zip, i, arr, type, path, callback, progressCallback);
           throw new Error(`Download Error!`);
         });
 
