@@ -287,7 +287,7 @@ class MapTileDownloader {
     return url;
   }
 
-  downloadList(zip, i, arr, type, path, callback) {
+  downloadList(zip, i, arr, type, path, callback, progressCallback) {
     if (i < arr.length) {
       var item = arr[i];
       axios({
@@ -299,18 +299,45 @@ class MapTileDownloader {
           if (type == 'zip') {
             zip.file(`zoom_levels/${item.z}/${item.x}/${item.y}`, response.data);
             i++;
+            if (progressCallback) {
+              progressCallback({
+                progress: (i / arr.length) * 100,
+                current: i,
+                total: arr.length,
+                tile:{z: item.z, x: item.x, y: item.y},
+                status:'success'
+              });
+            }
             this.downloadList(zip, i, arr, type, path, callback);
           } else if (type == 'folder') {
             const chunks = [];
             response.data.on('data', chunk => chunks.push(chunk));
             response.data.on('end', () => {
               const fileBuffer = Buffer.concat(chunks);
-              fs.writeFileSync(`${path}zoom_levels/${item.z}/${item.x}/${item.y}`, fileBuffer);
+              fs.writeFileSync(`${path}/${item.z}/${item.x}/${item.y}`, fileBuffer);
               i++;
+              if (progressCallback) {
+                progressCallback({
+                  progress: (i / arr.length) * 100,
+                  current: i,
+                  total: arr.length,
+                  tile:{z: item.z, x: item.x, y: item.y},
+                  status:'success'
+                });
+              }
               this.downloadList(zip, i, arr, type, path, callback);
             });
             response.data.on('error', error => {
               i++;
+              if (progressCallback) {
+                progressCallback({
+                  progress: (i / arr.length) * 100,
+                  current: i,
+                  total: arr.length,
+                  tile:{z: item.z, x: item.x, y: item.y},
+                  status:'faild'
+                });
+              }
               this.downloadList(zip, i, arr, type, path, callback);
               throw new Error(`Download Error!`);
             });
@@ -318,11 +345,29 @@ class MapTileDownloader {
         })
         .catch(error => {
           i++;
+          if (progressCallback) {
+            progressCallback({
+              progress: (i / arr.length) * 100,
+              current: i,
+              total: arr.length,
+              tile:{z: item.z, x: item.x, y: item.y},
+              status:'error'
+            });
+          }
           this.downloadList(zip, i, arr, type, path, callback);
           throw new Error(`Download Error!`);
         });
 
     } else {
+      if (progressCallback) {
+        progressCallback({
+          progress: 100,
+          current: arr.length,
+          total: arr.length,
+          tile:{z: 0, x: 0, y: 0},
+          status:'completed'
+        });
+      }
       if (type == 'zip') {
         zip.generateAsync({
           type: "nodebuffer"
@@ -330,7 +375,7 @@ class MapTileDownloader {
           callback(content);
         });
       } else if (type == 'folder') {
-        callback(`${path}zoom_levels`);
+        callback(`${path}`);
       }
 
     }
@@ -383,21 +428,21 @@ class MapTileDownloader {
   generateToPath(path, callback) {
     if (this.status) {
       var format = this.tile.format;
-      if (!fs.existsSync(`${path}zoom_levels`)) {
-        fs.mkdirSync(`${path}zoom_levels`);
+      if (!fs.existsSync(`${path}`)) {
+        fs.mkdirSync(`${path}`);
       }
       const generator = new TilesCounter(this.area.data);
       var tiles = generator.getTilesFromZoomRange(this.tile.minZoom, this.tile.maxZoom);
       var downloadlist = [];
       for (var level in tiles.zoom) {
-        if (!fs.existsSync(`${path}zoom_levels/${level}`)) {
-          fs.mkdirSync(`${path}zoom_levels/${level}`);
+        if (!fs.existsSync(`${path}/${level}`)) {
+          fs.mkdirSync(`${path}/${level}`);
         }
         for (var i = 0; i < tiles.zoom[level].length; i++) {
           var x = tiles.zoom[level][i].x;
           var y = tiles.zoom[level][i].y;
-          if (!fs.existsSync(`${path}zoom_levels/${level}/${x}`)) {
-            fs.mkdirSync(`${path}zoom_levels/${level}/${x}`);
+          if (!fs.existsSync(`${path}/${level}/${x}`)) {
+            fs.mkdirSync(`${path}/${level}/${x}`);
           }
           var z = tiles.zoom[level][i].z;
           var tile = this.generateTile(this.tile.url, this.tile.subdomains, x, y, z);

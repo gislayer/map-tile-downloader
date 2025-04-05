@@ -123,14 +123,26 @@ You can download zip file to any file path in your server or pc.
 ```javascript
 downloader.downloadZipToPath('D:/export.zip',(status)=>{
     console.log(status);
+},(status)=>{
+  console.log(`Progress: ${status.progress}%`);
+  console.log(`Current: ${status.current}`);
+  console.log(`Total: ${status.total}`);
+  console.log(`Downloaded Tile: ${JSON.stringify(status.tile)}`);
+  console.log(`Status: ${status.status}`);
 });
 ```
 
 ### Generate Folder/Files to Defined Path
 When you use this method tiles will download in hierarchical folders step by step
 ```javascript
-downloader.generateToPath('D:/',(status)=>{
+downloader.generateToPath('D:',(status)=>{
     console.log(status);
+},(status)=>{
+  console.log(`Progress: ${status.progress}%`);
+  console.log(`Current: ${status.current}`);
+  console.log(`Total: ${status.total}`);
+  console.log(`Downloaded Tile: ${JSON.stringify(status.tile)}`);
+  console.log(`Status: ${status.status}`);
 });
 ```
 ## Author
