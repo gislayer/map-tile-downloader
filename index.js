@@ -425,7 +425,7 @@ class MapTileDownloader {
     }
   }
 
-  generateToPath(path, callback) {
+  generateToPath(path, callback, progressCallback) {
     if (this.status) {
       var format = this.tile.format;
       if (!fs.existsSync(`${path}`)) {
@@ -455,7 +455,7 @@ class MapTileDownloader {
           });
         }
       }
-      this.downloadList({}, 0, downloadlist, 'folder', path, callback);
+      this.downloadList({}, 0, downloadlist, 'folder', path, callback, progressCallback);
     } else {
       throw new Error(`OBject status is not active!`);
     }
