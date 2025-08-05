@@ -14,7 +14,7 @@ class MapTileDownloader {
       this.area = this.checkArea(data);
       this.status = true;
     } catch (err) {
-      console.error('Error :', error.message);
+      console.error('Error :', err.message);
     }
   }
 
